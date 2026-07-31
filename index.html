@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemva — Restaurante · San Juan de los Terreros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   RESET & VARIABLES
+   ============================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --sand:#C9A96E;
+  --sand-light:#E8D5B0;
+  --ocean:#0D2130;
+  --charcoal:#111111;
+  --white:#F8F4EE;
+  --muted:#8A8A7A;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --body:'Montserrat',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--charcoal);
+  color:var(--white);
+  font-family:var(--body);
+  font-weight:300;
+  overflow-x:hidden;
+}
+
+/* ============================================================
+   PAGE COVER / INTRO
+   ============================================================ */
+.page-cover{
+  position:fixed;inset:0;
+  background:var(--charcoal);
+  z-index:999990;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.cover-logo{
+  font-family:var(--display);
+  font-size:5rem;font-weight:300;letter-spacing:.28em;
+  color:var(--sand-light);
+  opacity:0;
+  transform:translateY(28px);
+  animation:coverFadeIn .9s ease-out .15s forwards;
+}
+.cover-bar{
+  width:0;height:1px;
+  background:var(--sand);
+  margin-top:1.8rem;
+  animation:barGrow 1.3s cubic-bezier(.23,1,.32,1) .4s forwards;
+}
+.cover-sub{
+  font-size:.56rem;letter-spacing:.38em;text-transform:uppercase;
+  color:var(--sand);margin-top:1rem;
+  opacity:0;
+  animation:coverFadeIn .7s ease-out .65s forwards;
+}
+@keyframes coverFadeIn{
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes barGrow{
+  to{width:90px;}
+}
+
+/* ============================================================
+   CUSTOM CURSOR (desktop only)
+   ============================================================ */
+.cur-dot{
+  position:fixed;top:0;left:0;width:8px;height:8px;
+  background:var(--sand);border-radius:50%;pointer-events:none;
+  z-index:99999;transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s,opacity .3s;
+}
+.cur-ring{
+  position:fixed;top:0;left:0;width:36px;height:36px;
+  border:1px solid rgba(201,169,110,.5);border-radius:50%;
+  pointer-events:none;z-index:99998;transform:translate(-50%,-50%);
+  transition:width .4s cubic-bezier(.23,1,.32,1),height .4s cubic-bezier(.23,1,.32,1),opacity .3s,border-color .3s;
+}
+.cur-ring.hov{width:60px;height:60px;border-color:var(--sand);opacity:.7;}
+.cur-dot.hov{width:4px;height:4px;}
+@media(min-width:961px){
+  body{cursor:none;}
+  a,button,.tab,.btn,.btn-ghost,.soc,input,select{cursor:none;}
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:2rem 5rem;
+  transition:background .5s,padding .4s;
+}
+nav.scrolled{
+  background:rgba(13,33,48,.97);
+  backdrop-filter:blur(16px);
+  padding:1.2rem 5rem;
+}
+.logo{
+  font-family:var(--display);font-size:2.1rem;font-weight:300;
+  letter-spacing:.15em;color:var(--sand-light);text-decoration:none;
+}
+.nav-ul{display:flex;gap:2.2rem;list-style:none;align-items:center;}
+.nav-ul a{
+  font-size:.67rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;opacity:.75;
+  position:relative;
+  transition:opacity .3s,color .3s;
+}
+.nav-ul a::after{
+  content:'';display:block;height:1px;background:var(--sand);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.23,1,.32,1);
+}
+.nav-ul a:not(.cta):hover::after{transform:scaleX(1);}
+.nav-ul a:hover{opacity:1;color:var(--sand);}
+.nav-ul .cta{
+  border:1px solid var(--sand);color:var(--sand)!important;
+  padding:.5rem 1.4rem;opacity:1!important;
+}
+.nav-ul .cta:hover{background:var(--sand);color:var(--charcoal)!important;}
+.nav-ul .cta::after{display:none;}
+.burger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;z-index:200;padding:6px;
+}
+.burger span{display:block;width:24px;height:1px;background:var(--white);}
+.mob-nav{
+  display:none;position:fixed;inset:0;
+  background:rgba(13,33,48,.98);
+  flex-direction:column;justify-content:center;align-items:center;
+  gap:3rem;z-index:150;
+}
+.mob-nav.open{display:flex;}
+.mob-nav a{
+  font-family:var(--display);font-size:2rem;font-weight:300;
+  letter-spacing:.15em;color:var(--white);text-decoration:none;
+  transition:color .3s;
+}
+.mob-nav a:hover{color:var(--sand);}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  height:100vh;position:relative;
+  display:flex;align-items:flex-end;
+  padding:0 5rem 7rem;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;overflow:hidden;
+  will-change:transform;
+}
+.hero-bg-zoom{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(13,33,48,.96) 0%,rgba(13,33,48,.18) 45%,rgba(13,33,48,.62) 100%),
+    url('images/hero.jpg') center 65%/cover no-repeat;
+  transform:scale(1.05);
+  animation:heroZoom 16s ease-out forwards;
+  will-change:transform;
+}
+@keyframes heroZoom{to{transform:scale(1);}}
+.hero-content{
+  position:relative;z-index:2;max-width:700px;
+  will-change:transform,opacity;
+}
+.eyebrow{
+  font-size:.63rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--sand);display:block;margin-bottom:1.6rem;
+  opacity:0;
+}
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(3.5rem,7.5vw,7.5rem);
+  font-weight:300;line-height:.93;color:var(--white);margin-bottom:1.6rem;
+}
+.hero h1 em{font-style:italic;color:var(--sand-light);}
+.hero-sub{
+  font-size:.84rem;line-height:1.85;
+  color:rgba(248,244,238,.62);max-width:430px;margin-bottom:3rem;
+  opacity:0;
+}
+.hero-btns{
+  display:flex;gap:1.6rem;align-items:center;flex-wrap:wrap;
+  opacity:0;
+}
+.scroll-hint{
+  position:absolute;bottom:3rem;right:5rem;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:.8rem;
+  font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
+  transition:opacity .4s;
+}
+.scroll-line{
+  width:1px;height:58px;
+  background:linear-gradient(to bottom,var(--sand),transparent);
+  animation:blink 2.2s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+/* ============================================================
+   BUTTONS — MAGNETIC
+   ============================================================ */
+.btn{
+  background:var(--sand);color:var(--charcoal);
+  padding:1.1rem 3rem;
+  font-family:var(--body);font-size:.68rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;
+  text-decoration:none;display:inline-block;
+  transition:background .3s,transform .4s cubic-bezier(.23,1,.32,1);
+  position:relative;overflow:hidden;
+}
+.btn:hover{background:var(--sand-light);}
+.btn-ghost{
+  color:var(--white);font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;text-decoration:none;opacity:.68;
+  display:inline-flex;align-items:center;gap:.7rem;
+  transition:opacity .3s;
+}
+.btn-ghost::after{content:'→';transition:transform .3s;}
+.btn-ghost:hover{opacity:1;}
+.btn-ghost:hover::after{transform:translateX(5px);}
+
+/* ============================================================
+   SHARED UTILITIES
+   ============================================================ */
+.lbl{
+  font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--sand);display:block;margin-bottom:1.6rem;
+  position:relative;
+}
+.lbl::after{
+  content:'';display:block;height:1px;
+  width:0;background:var(--sand);
+  margin-top:4px;
+  transition:width .9s cubic-bezier(.23,1,.32,1);
+}
+.lbl.drawn::after{width:100%;}
+.divider{width:48px;height:1px;background:var(--sand);margin:0 auto 1.6rem;}
+
+/* ============================================================
+   TEXT REVEAL
+   ============================================================ */
+.rev-char{display:inline-block;overflow:hidden;vertical-align:bottom;}
+.rev-inner{
+  display:inline-block;
+  transform:translateY(110%) rotate(3deg);
+  opacity:0;
+  will-change:transform,opacity;
+  transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .5s ease;
+}
+.rev-inner.revealed{transform:translateY(0) rotate(0deg);opacity:1;}
+
+/* ============================================================
+   SECTION REVEAL
+   ============================================================ */
+.r{opacity:0;transform:translateY(26px);transition:opacity .85s ease,transform .85s ease;}
+.r.in{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.13s;}
+.d2{transition-delay:.27s;}
+.d3{transition-delay:.42s;}
+
+/* ============================================================
+   PHILOSOPHY
+   ============================================================ */
+.philosophy{
+  background:var(--ocean);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;
+  padding:9rem 5rem;
+}
+.phil-text h2{
+  font-family:var(--display);font-size:clamp(2.2rem,4vw,4rem);
+  font-weight:300;line-height:1.12;color:var(--white);margin-bottom:2rem;
+}
+.phil-text h2 em{font-style:italic;color:var(--sand-light);}
+.phil-text p{font-size:.87rem;line-height:1.95;color:rgba(248,244,238,.58);margin-bottom:1.6rem;}
+.phil-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;
+  margin-top:2.8rem;padding-top:2.2rem;
+  border-top:1px solid rgba(201,169,110,.2);
+}
+.s-num{
+  font-family:var(--display);font-size:2.8rem;font-weight:300;
+  color:var(--sand);line-height:1;display:block;margin-bottom:.3rem;
+}
+.s-lbl{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
+.phil-visual{position:relative;height:540px;}
+.v-main{
+  position:absolute;top:0;right:0;width:80%;height:80%;
+  object-fit:cover;filter:brightness(.82);
+}
+.v-accent{
+  position:absolute;bottom:0;left:0;width:52%;height:48%;
+  object-fit:cover;filter:brightness(.75);border:5px solid var(--ocean);
+}
+.v-tag{
+  position:absolute;bottom:3.2rem;right:1rem;
+  background:var(--sand);color:var(--charcoal);
+  padding:.9rem 1.4rem;font-size:.6rem;letter-spacing:.22em;
+  text-transform:uppercase;font-weight:500;
+}
+
+/* ============================================================
+   CARTA
+   ============================================================ */
+.carta{background:var(--charcoal);padding:9rem 5rem;}
+.carta-top{margin-bottom:3.5rem;}
+.carta-top h2{
+  font-family:var(--display);font-size:clamp(2rem,4vw,3.8rem);
+  font-weight:300;color:var(--white);margin-bottom:.6rem;
+}
+.carta-top h2 em{font-style:italic;color:var(--sand-light);}
+.carta-intro{font-size:.82rem;color:var(--muted);line-height:1.85;max-width:580px;}
+.tabs{
+  display:flex;flex-wrap:wrap;
+  border-bottom:1px solid rgba(201,169,110,.18);
+  margin-bottom:3rem;
+}
+.tab{
+  background:none;border:none;
+  border-bottom:2px solid transparent;
+  padding:.95rem 1.8rem;margin-bottom:-1px;
+  font-family:var(--body);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);cursor:pointer;white-space:nowrap;
+  transition:color .3s,border-color .3s,transform .25s;
+}
+.tab:hover{color:var(--sand-light);transform:translateY(-2px);}
+.tab.active{color:var(--sand);border-bottom-color:var(--sand);}
+.panel{display:none;}
+.panel.active{display:block;}
+.dish-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 4rem;}
+.dish{
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:1.2rem;padding:1.2rem 0;
+  border-bottom:1px solid rgba(201,169,110,.09);
+  position:relative;
+  transition:padding-left .3s ease;
+}
+.dish::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:0;background:rgba(201,169,110,.06);
+  transition:width .4s ease;
+}
+.dish:hover{padding-left:.5rem;}
+.dish:hover::before{width:100%;}
+.dish:last-child{border-bottom:none;}
+.d-left{flex:1;}
+.d-name{
+  font-family:var(--display);font-size:1.14rem;font-weight:400;
+  color:var(--white);line-height:1.2;margin-bottom:.18rem;
+  transition:color .25s;
+}
+.dish:hover .d-name{color:var(--sand-light);}
+.d-desc{font-size:.7rem;color:var(--muted);line-height:1.55;}
+.d-price{
+  font-family:var(--display);font-size:1.05rem;
+  color:var(--sand);white-space:nowrap;flex-shrink:0;
+  transition:color .25s;
+}
+.dish:hover .d-price{color:var(--sand-light);}
+.panel-note{
+  margin-top:2rem;font-size:.74rem;color:var(--muted);
+  font-style:italic;text-align:center;letter-spacing:.06em;
+}
+.star{color:var(--sand);}
+
+/* ============================================================
+   EXPERIENCE — FLOATING ICONS
+   ============================================================ */
+.experience{
+  background:var(--ocean);text-align:center;
+  padding:10rem 5rem;
+}
+.experience h2{
+  font-family:var(--display);font-size:clamp(2.5rem,5.5vw,5.8rem);
+  font-weight:300;line-height:1.08;color:var(--white);
+  max-width:900px;margin:1.6rem auto 2.5rem;
+}
+.experience h2 em{font-style:italic;color:var(--sand-light);}
+.experience>p{
+  font-size:.87rem;color:rgba(248,244,238,.52);
+  max-width:470px;margin:0 auto 3.2rem;line-height:1.95;
+}
+.feats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;
+  margin-top:5rem;padding-top:4.5rem;
+  border-top:1px solid rgba(201,169,110,.14);
+}
+.feat{text-align:center;}
+.feat-icon{
+  font-size:1.7rem;display:block;margin-bottom:.9rem;
+}
+/* Floating animation triggers when .feat has .in */
+@keyframes floatIcon{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-10px) scale(1.06);}
+}
+.feat.in .feat-icon{animation:floatIcon 3.5s ease-in-out infinite;}
+.feat:nth-child(1).in .feat-icon{animation-delay:0s;}
+.feat:nth-child(2).in .feat-icon{animation-delay:.5s;}
+.feat:nth-child(3).in .feat-icon{animation-delay:1s;}
+.feat:nth-child(4).in .feat-icon{animation-delay:1.5s;}
+.feat h3{
+  font-family:var(--display);font-size:1.22rem;font-weight:400;
+  color:var(--white);margin-bottom:.5rem;
+}
+.feat p{font-size:.72rem;color:var(--muted);line-height:1.75;margin:0;}
+
+/* ============================================================
+   LOCATION
+   ============================================================ */
+.location{display:grid;grid-template-columns:1fr 1fr;}
+.loc-visual{
+  position:relative;min-height:620px;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.loc-visual img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;filter:brightness(.45) saturate(.8);
+}
+.loc-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(13,33,48,.5) 0%,rgba(13,33,48,.15) 100%);
+}
+.pin-wrap{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:1.1rem;
+}
+.pin{
+  width:62px;height:62px;border-radius:50%;
+  border:1px solid var(--sand);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;
+  animation:pinPulse 2.8s ease-in-out infinite;
+}
+@keyframes pinPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(201,169,110,.4);}
+  50%{box-shadow:0 0 0 24px rgba(201,169,110,0);}
+}
+.pin-lbl{
+  font-size:.63rem;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--sand-light);text-align:center;line-height:1.6;
+}
+.loc-info{
+  background:var(--charcoal);padding:5.5rem;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.loc-info h2{
+  font-family:var(--display);font-size:clamp(2rem,3vw,2.8rem);
+  font-weight:300;color:var(--white);margin-bottom:2.8rem;line-height:1.2;
+}
+.loc-info h2 em{font-style:italic;color:var(--sand-light);}
+.info-block{
+  display:flex;gap:1.3rem;align-items:flex-start;
+  margin-bottom:1.6rem;padding-bottom:1.6rem;
+  border-bottom:1px solid rgba(201,169,110,.1);
+}
+.info-block:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+.i-icon{color:var(--sand);min-width:20px;text-align:center;font-size:1rem;margin-top:.05rem;}
+.i-lbl{
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:.4rem;
+}
+.i-val{font-size:.84rem;color:var(--white);line-height:1.75;}
+.i-val a{color:var(--sand);text-decoration:none;}
+.horario{display:grid;grid-template-columns:auto 1fr;gap:.28rem 1.3rem;margin-top:.5rem;}
+.h-d{font-size:.73rem;color:var(--muted);}
+.h-h{font-size:.77rem;color:var(--white);}
+.h-c{font-size:.73rem;color:rgba(201,169,110,.38);font-style:italic;}
+
+/* ============================================================
+   RESERVA
+   ============================================================ */
+.reserva{
+  background:var(--sand);padding:8rem 5rem;
+  text-align:center;position:relative;overflow:hidden;
+}
+.reserva::before{
+  content:'GEMVA';position:absolute;
+  font-family:var(--display);font-size:19vw;font-weight:300;
+  color:rgba(0,0,0,.055);top:50%;left:50%;
+  transform:translate(-50%,-50%);white-space:nowrap;
+  pointer-events:none;letter-spacing:.15em;
+}
+.reserva h2{
+  font-family:var(--display);font-size:clamp(2.2rem,5vw,4.5rem);
+  font-weight:300;color:var(--charcoal);margin-bottom:1rem;
+}
+.reserva h2 em{font-style:italic;}
+.reserva>p{font-size:.84rem;color:rgba(17,17,17,.58);margin-bottom:2.8rem;}
+.res-form{
+  display:flex;gap:.9rem;justify-content:center;
+  flex-wrap:wrap;position:relative;z-index:1;
+}
+.ri{
+  background:rgba(17,17,17,.1);border:1px solid rgba(17,17,17,.18);
+  padding:1rem 1.5rem;font-family:var(--body);font-size:.85rem;
+  color:var(--charcoal);outline:none;min-width:168px;
+  transition:border-color .3s,box-shadow .3s;
+}
+.ri::placeholder{color:rgba(17,17,17,.38);}
+.ri:focus{
+  border-color:rgba(201,169,110,.65)!important;
+  box-shadow:0 0 0 3px rgba(201,169,110,.1)!important;
+}
+.rb{
+  background:var(--charcoal);color:var(--sand-light);border:none;
+  padding:1rem 2.4rem;font-family:var(--body);font-size:.67rem;
+  font-weight:500;letter-spacing:.24em;text-transform:uppercase;
+  cursor:pointer;
+  transition:background .3s,transform .4s cubic-bezier(.23,1,.32,1);
+}
+.rb:hover{background:var(--ocean);}
+.r-tel{margin-top:1.9rem;font-size:.74rem;color:rgba(17,17,17,.48);}
+.r-tel a{color:var(--charcoal);text-decoration:none;font-weight:500;}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{
+  background:var(--ocean);padding:5.5rem 5rem 3rem;
+  display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;
+}
+.f-logo{
+  font-family:var(--display);font-size:2.5rem;font-weight:300;
+  color:var(--sand-light);display:block;margin-bottom:1rem;
+}
+.f-desc{font-size:.77rem;color:var(--muted);line-height:1.85;max-width:290px;margin-bottom:1.9rem;}
+.socials{display:flex;gap:1rem;}
+.soc{
+  width:37px;height:37px;border:1px solid rgba(201,169,110,.28);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--sand);font-size:.7rem;text-decoration:none;
+  transition:border-color .3s,background .3s,transform .35s cubic-bezier(.23,1,.32,1);
+}
+.soc:hover{border-color:var(--sand);background:rgba(201,169,110,.1);transform:translateY(-5px) scale(1.1);}
+.fc h4{font-size:.58rem;letter-spacing:.28em;text-transform:uppercase;color:var(--sand);margin-bottom:1.5rem;}
+.fc ul{list-style:none;}
+.fc li{margin-bottom:.8rem;}
+.fc a{font-size:.79rem;color:var(--muted);text-decoration:none;transition:color .3s;}
+.fc a:hover{color:var(--white);}
+.foot-bot{
+  background:var(--ocean);padding:1.5rem 5rem;
+  border-top:1px solid rgba(201,169,110,.1);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+}
+.foot-bot p{font-size:.66rem;color:var(--muted);}
+
+/* ============================================================
+   GRAIN OVERLAY
+   ============================================================ */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  opacity:.024;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:160px;
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
+@media(max-width:960px){
+  nav{padding:1.3rem 1.5rem;}
+  nav.scrolled{padding:1rem 1.5rem;}
+  .nav-ul{display:none;}
+  .burger{display:flex;}
+  .hero{padding:0 1.5rem 5rem;}
+  .scroll-hint{right:1.5rem;}
+  .hero h1{font-size:clamp(2.8rem,10vw,4.5rem);}
+  .philosophy{grid-template-columns:1fr;gap:3rem;padding:5.5rem 1.5rem;}
+  .phil-visual{height:360px;}
+  .v-main{width:85%;height:85%;}
+  .v-accent{width:50%;height:45%;}
+  .carta{padding:5.5rem 1.5rem;}
+  .dish-grid{grid-template-columns:1fr;gap:0;}
+  .tabs{gap:0;}
+  .tab{padding:.75rem .9rem;font-size:.58rem;}
+  .experience{padding:6.5rem 1.5rem;}
+  .feats{grid-template-columns:1fr 1fr;gap:2rem;}
+  .location{grid-template-columns:1fr;}
+  .loc-visual{min-height:300px;}
+  .loc-info{padding:3.5rem 1.5rem;}
+  .reserva{padding:5.5rem 1.5rem;}
+  .res-form{flex-direction:column;align-items:center;}
+  .ri,.rb{width:100%;max-width:400px;min-width:unset;}
+  footer{grid-template-columns:1fr;gap:2.2rem;padding:4rem 1.5rem 2.5rem;}
+  .foot-bot{padding:1.3rem 1.5rem;flex-direction:column;text-align:center;}
+  .cover-logo{font-size:3rem;}
+  /* Disable cursor on touch */
+  .cur-dot,.cur-ring{display:none;}
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   ============================================================ */
+@media(max-width:500px){
+  .hero h1{font-size:clamp(2.4rem,9vw,3.5rem);}
+  .hero-btns{flex-direction:column;align-items:flex-start;}
+  .phil-visual{height:280px;}
+  .phil-stats{grid-template-columns:1fr 1fr;}
+  .feats{grid-template-columns:1fr 1fr;}
+  .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tab{flex-shrink:0;}
+}
+@media(max-width:380px){
+  .feats{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PAGE COVER
+     ============================================================ -->
+<div class="page-cover" id="pageCover">
+  <div class="cover-logo">Gemva</div>
+  <div class="cover-bar"></div>
+  <div class="cover-sub">San Juan de los Terreros &middot; Almería</div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cur-dot" id="curDot"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav id="nav">
+  <a class="logo" href="#">Gemva</a>
+  <ul class="nav-ul">
+    <li><a href="#filosofia">Nuestra esencia</a></li>
+    <li><a href="#carta">La carta</a></li>
+    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="#reserva" class="cta">Reservar mesa</a></li>
+  </ul>
+  <button class="burger" onclick="toggleMob()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mob-nav" id="mobNav">
+  <a href="#filosofia" onclick="closeMob()">Nuestra esencia</a>
+  <a href="#carta" onclick="closeMob()">La carta</a>
+  <a href="#ubicacion" onclick="closeMob()">Ubicación</a>
+  <a href="#reserva" onclick="closeMob()">Reservar mesa</a>
+</div>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<div class="hero">
+  <div class="hero-bg" id="heroBg"><div class="hero-bg-zoom"></div></div>
+  <div class="hero-content" id="heroContent">
+    <span class="eyebrow" id="heroEyebrow">San Juan de los Terreros &middot; Almería</span>
+    <h1 id="heroH1">Donde el mar<br><em>dicta el menú</em></h1>
+    <p class="hero-sub" id="heroSub">Cocina mediterránea de raíz. Producto local, pescado fresco de la lonja y el horizonte del Mediterráneo como telón de fondo.</p>
+    <div class="hero-btns" id="heroBtns">
+      <a href="#reserva" class="btn mag-btn">Reservar mesa</a>
+      <a href="#carta" class="btn-ghost">Ver la carta</a>
+    </div>
+  </div>
+  <div class="scroll-hint" id="scrollHint">
+    <div class="scroll-line"></div>
+    <span>Descubrir</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PHILOSOPHY
+     ============================================================ -->
+<section class="philosophy" id="filosofia">
+  <div class="phil-text r">
+    <span class="lbl">01 — Nuestra filosofía</span>
+    <h2>La cocina como<br><em>acto de memoria</em></h2>
+    <p>En Gemva creemos que los mejores platos no se inventan, se recuerdan. Rescatamos recetas de la costa almeriense y les damos una segunda vida con técnica contemporánea y producto de temporada.</p>
+    <p>Cada jornada comienza en la lonja. Cada carta cambia con el mar. Porque la frescura no es un valor añadido, es la base de todo lo que hacemos.</p>
+    <div class="phil-stats">
+      <div><span class="s-num">100%</span><span class="s-lbl">Producto local</span></div>
+      <div><span class="s-num">Diaria</span><span class="s-lbl">Compra en lonja</span></div>
+      <div><span class="s-num">Mar</span><span class="s-lbl">Terraza con vistas</span></div>
+      <div><span class="s-num">Km0</span><span class="s-lbl">Proveedores cercanos</span></div>
+    </div>
+  </div>
+  <div class="phil-visual r d2">
+    <img class="v-main" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80" alt="Cocina Gemva" loading="lazy">
+    <img class="v-accent" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80" alt="Mariscos" loading="lazy">
+    <div class="v-tag">Producto de temporada</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CARTA
+     ============================================================ -->
+<section class="carta" id="carta">
+  <div class="carta-top r">
+    <span class="lbl">02 — La carta</span>
+    <h2>Todo lo que el <em>mar y la tierra</em> nos dan</h2>
+    <p class="carta-intro">Producto fresco de la lonja y de la huerta almeriense. Pregunta siempre por nuestros pescados y sugerencias del día.</p>
+  </div>
+  <div class="tabs" id="tabRow">
+    <button class="tab active" data-panel="ensaladas">Ensaladas</button>
+    <button class="tab" data-panel="picoteo">Picoteo</button>
+    <button class="tab" data-panel="pescados">Pescados</button>
+    <button class="tab" data-panel="carnes">Carnes</button>
+    <button class="tab" data-panel="tallarines">Tallarines</button>
+    <button class="tab" data-panel="arroces">Arroces</button>
+  </div>
+
+  <!-- ENSALADAS -->
+  <div class="panel active" id="pan-ensaladas">
+    <div class="dish-grid">
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Ensalada Gemva</div><div class="d-desc">Lechuga, queso de cabra, tomate cherry, zanahoria, picatostes y vinagreta de la casa</div></div><div class="d-price">12,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Ensalada de tomate y atún</div><div class="d-desc">Lechuga, tomate, atún, aceitunas negras y cebolla</div></div><div class="d-price">12,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Barco a la mar</div><div class="d-desc">Mezclum, salmón ahumado, langostino, aguacate, tomate cherry, fruta y salsa rosa</div></div><div class="d-price">12,00 €</div></div>
+      </div>
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Ahumada</div><div class="d-desc">Canónigos, queso feta, cebolla, tomate cherry, salmón y vinagreta de la casa</div></div><div class="d-price">12,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Ensalada Roquefort</div><div class="d-desc">Lechuga, nueces, membrillo, roquefort, manzana y toque de Pedro Ximénez</div></div><div class="d-price">12,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Ensalada mixta</div><div class="d-desc">Lechuga, tomate, cebolla, maíz, zanahoria, remolacha, atún y aceitunas</div></div><div class="d-price">8,50 €</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PICOTEO -->
+  <div class="panel" id="pan-picoteo">
+    <div class="dish-grid">
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Almejas al vino blanco</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Surtido almejas y mejillones al vino</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Mejillones Gemva</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Calamar nacional a la romana</div><div class="d-desc">400–500 gr.</div></div><div class="d-price">12,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Chipirones</div></div><div class="d-price">9,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Tabla de quesos nacionales e internacionales</div><div class="d-desc">Con aceite de oro del desierto de Tabernas</div></div><div class="d-price">16,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Tortitas de camarón</div></div><div class="d-price">9,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Croquetas caseras de jamón</div></div><div class="d-price">9,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Alcachofas en tempura al roquefort</div></div><div class="d-price">12,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Crujiente de queso brie con mermelada de arándanos</div></div><div class="d-price">9,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Croqueta de bogavante</div><div class="d-desc">Precio por unidad</div></div><div class="d-price">3,00 €</div></div>
+      </div>
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Croqueta de gambas</div><div class="d-desc">Precio por unidad</div></div><div class="d-price">2,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Croqueta de pulpo</div><div class="d-desc">Precio por unidad</div></div><div class="d-price">2,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Queso de cabra frito con mermelada de tomate</div></div><div class="d-price">9,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Crujiente de langostino con salsa agripicante</div></div><div class="d-price">9,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Foie de pato micuit con mermeladas y tostas</div></div><div class="d-price">12,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Parrillada de verdura</div></div><div class="d-price">10,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Berenjenas en tempura con miel de caña</div></div><div class="d-price">9,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Canelones de jamón cocido y endivia</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Gambas diablo</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Gambón al ajillo</div></div><div class="d-price">15,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Zamburiñas</div><div class="d-desc">Precio por unidad</div></div><div class="d-price">2,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Revuelto de setas</div></div><div class="d-price">12,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Carpaccio de salmón marinado</div></div><div class="d-price">16,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Carpaccio de wagyu, rúcula, parmesano y manzana</div></div><div class="d-price">16,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Pata de pulpo con puré <span class="star">★</span></div><div class="d-desc">Especialidad de la casa</div></div><div class="d-price">18,50 €</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PESCADOS -->
+  <div class="panel" id="pan-pescados">
+    <div class="dish-grid">
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Bacalao a la crema con almejas y mejillones</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Lubina a la espalda</div></div><div class="d-price">13,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Dorada a la espalda</div></div><div class="d-price">13,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Lenguado meunière</div></div><div class="d-price">18,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Emperador a la plancha</div></div><div class="d-price">14,00 €</div></div>
+      </div>
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Salmón a la crema con gambón</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Rodaballo con cherry marinado en albahaca</div></div><div class="d-price">17,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Calamar nacional a la plancha</div></div><div class="d-price">16,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Corvina a la espalda</div></div><div class="d-price">16,00 €</div></div>
+      </div>
+    </div>
+    <p class="panel-note">✦ Pregunta siempre por nuestros pescados frescos del día</p>
+  </div>
+
+  <!-- CARNES -->
+  <div class="panel" id="pan-carnes">
+    <div class="dish-grid">
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Solomillo de cerdo en salsa strogonoff</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Presa de cerdo ibérica</div></div><div class="d-price">14,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Solomillo de vaca gallega</div><div class="d-desc">200–250 gr. aprox.</div></div><div class="d-price">22,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Entrecot de vaca gallega</div><div class="d-desc">300–350 gr. aprox.</div></div><div class="d-price">19,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Pechuga de pollo al curry</div></div><div class="d-price">12,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Costillar marinado a la brasa</div></div><div class="d-price">14,00 €</div></div>
+      </div>
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Chuletas de cordero segureño</div></div><div class="d-price">17,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Carrillada de cerdo ibérica</div></div><div class="d-price">14,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">T-bone de vaca gallega</div><div class="d-desc">900–950 gr. · Solomillo y entrecot en el mismo corte</div></div><div class="d-price">38,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Chuletón de vaca premium</div></div><div class="d-price">48,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Hamburguesa con patatas</div></div><div class="d-price">10,00 €</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TALLARINES -->
+  <div class="panel" id="pan-tallarines">
+    <div class="dish-grid">
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Boloñesa</div></div><div class="d-price">8,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Carbonara</div></div><div class="d-price">8,50 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Diablo</div><div class="d-desc">Con gambón y nuestra salsa diablo</div></div><div class="d-price">14,00 €</div></div>
+      </div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- ARROCES -->
+  <div class="panel" id="pan-arroces">
+    <div class="dish-grid">
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Arroz mixto</div></div><div class="d-price">12,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Arroz de mariscos</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Fideuá</div></div><div class="d-price">14,00 €</div></div>
+      </div>
+      <div>
+        <div class="dish"><div class="d-left"><div class="d-name">Arroz a banda</div></div><div class="d-price">14,00 €</div></div>
+        <div class="dish"><div class="d-left"><div class="d-name">Caldero de bogavante</div></div><div class="d-price">14,50 €</div></div>
+      </div>
+    </div>
+    <p class="panel-note">✦ Arroces por encargo · Consulta disponibilidad</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     EXPERIENCE — FLOATING ICONS
+     ============================================================ -->
+<section class="experience" id="experiencia">
+  <span class="lbl">03 — El lugar</span>
+  <div class="divider"></div>
+  <h2>Una <em>terraza</em> con el<br>Mediterráneo de fondo</h2>
+  <p>San Juan de los Terreros es uno de los rincones más auténticos del litoral andaluz. En Gemva lo hemos convertido en nuestra sala más especial.</p>
+  <a href="#reserva" class="btn mag-btn">Reservar tu mesa</a>
+  <div class="feats">
+    <div class="feat r"><span class="feat-icon">⚓</span><h3>Terraza al mar</h3><p>Vistas directas al Mediterráneo desde cada mesa</p></div>
+    <div class="feat r d1"><span class="feat-icon">🐟</span><h3>Lonja diaria</h3><p>Compramos cada mañana en la lonja local</p></div>
+    <div class="feat r d2"><span class="feat-icon">🌿</span><h3>Km Zero</h3><p>Huerta, aceite y vinos de productores almerienses</p></div>
+    <div class="feat r d3"><span class="feat-icon">🍷</span><h3>Bodega selecta</h3><p>Vinos andaluces y nacionales seleccionados con mimo</p></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LOCATION
+     ============================================================ -->
+<div class="location" id="ubicacion">
+  <div class="loc-visual">
+    <img src="images/ubicacion.jpg" alt="San Juan de los Terreros" loading="lazy">
+    <div class="loc-overlay"></div>
+    <div class="pin-wrap">
+      <div class="pin">📍</div>
+      <p class="pin-lbl">San Juan de los Terreros<br>Pulpí · Almería</p>
+    </div>
+  </div>
+  <div class="loc-info">
+    <span class="lbl">04 — Encuéntranos</span>
+    <h2>Junto al <em>castillo</em>,<br>frente al mar</h2>
+    <div class="info-block">
+      <span class="i-icon">📍</span>
+      <div><span class="i-lbl">Dirección</span><span class="i-val">Av. Puerta Litoral Andaluz 8<br>04648 San Juan de los Terreros, Almería</span></div>
+    </div>
+    <div class="info-block">
+      <span class="i-icon">📞</span>
+      <div><span class="i-lbl">Teléfono · Reservas</span><span class="i-val"><a href="tel:+34667089698">+34 667 08 96 98</a></span></div>
+    </div>
+    <div class="info-block">
+      <span class="i-icon">🕐</span>
+      <div>
+        <span class="i-lbl">Horario</span>
+        <div class="horario">
+          <span class="h-d">Lunes</span><span class="h-c">Cerrado</span>
+          <span class="h-d">Martes</span><span class="h-h">11:00 – 0:00</span>
+          <span class="h-d">Miércoles</span><span class="h-h">11:00 – 0:00</span>
+          <span class="h-d">Jueves</span><span class="h-h">11:00 – 0:00</span>
+          <span class="h-d">Viernes</span><span class="h-h">11:00 – 0:00</span>
+          <span class="h-d">Sábado</span><span class="h-h">11:00 – 0:00</span>
+          <span class="h-d">Domingo</span><span class="h-h">11:00 – 0:00</span>
+        </div>
+      </div>
+    </div>
+    <a href="#reserva" class="btn mag-btn" style="margin-top:2.2rem;">Reservar online</a>
+  </div>
+</div>
+
+<!-- ============================================================
+     RESERVA
+     ============================================================ -->
+<section class="reserva" id="reserva">
+  <span class="lbl" style="color:rgba(17,17,17,.38);">05 — Reservas</span>
+  <h2><em>Tu mesa</em> te espera</h2>
+  <p>Reserva con antelación y asegura tu sitio junto al Mediterráneo</p>
+  <form class="res-form" onsubmit="return false;">
+    <input class="ri" type="text" placeholder="Nombre completo" required>
+    <input class="ri" type="date" id="resDate" required>
+    <select class="ri" style="cursor:pointer;" required>
+      <option value="" disabled selected>Nº de personas</option>
+      <option>1 persona</option><option>2 personas</option><option>3 personas</option>
+      <option>4 personas</option><option>5 personas</option><option>6+ personas</option>
+    </select>
+    <input class="ri" type="tel" placeholder="Teléfono de contacto" required>
+    <button class="rb mag-btn" id="submitBtn">Confirmar reserva</button>
+  </form>
+  <p class="r-tel">O llámanos directamente al <a href="tel:+34667089698">+34 667 08 96 98</a></p>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div>
+    <span class="f-logo">Gemva</span>
+    <p class="f-desc">Restaurante mediterráneo en San Juan de los Terreros. Producto fresco de la lonja, cocina de raíz andaluza y vistas al mar.</p>
+    <div class="socials">
+      <a class="soc" href="#" aria-label="Instagram">ig</a>
+      <a class="soc" href="#" aria-label="Facebook">fb</a>
+      <a class="soc" href="#" aria-label="TripAdvisor">ta</a>
+    </div>
+  </div>
+  <div class="fc">
+    <h4>Navegación</h4>
+    <ul>
+      <li><a href="#filosofia">Nuestra filosofía</a></li>
+      <li><a href="#carta">La carta</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+      <li><a href="#reserva">Reservar</a></li>
+    </ul>
+  </div>
+  <div class="fc">
+    <h4>Contacto</h4>
+    <ul>
+      <li>Av. Puerta Litoral Andaluz 8</li>
+      <li>04648 San Juan de los Terreros</li>
+      <li><a href="tel:+34667089698">+34 667 08 96 98</a></li>
+      <li>Mar – Dom &nbsp;·&nbsp; 11:00 – 0:00</li>
+      <li>Lunes cerrado</li>
+    </ul>
+  </div>
+</footer>
+<div class="foot-bot">
+  <p>© 2025 Restaurante Gemva · San Juan de los Terreros · Almería</p>
+  <p>Aviso legal · Privacidad · Cookies</p>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+(function() {
+'use strict';
+
+/* ── MOBILE / TOUCH DETECTION ─────────────────────────── */
+var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+/* ── NAV ──────────────────────────────────────────────── */
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function() {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+function toggleMob() { document.getElementById('mobNav').classList.toggle('open'); }
+function closeMob()  { document.getElementById('mobNav').classList.remove('open'); }
+window.toggleMob = toggleMob;
+window.closeMob  = closeMob;
+
+/* ── CARTA TABS ───────────────────────────────────────── */
+document.getElementById('tabRow').addEventListener('click', function(e) {
+  var btn = e.target.closest('.tab');
+  if (!btn) return;
+  var id = btn.getAttribute('data-panel');
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('pan-' + id).classList.add('active');
+});
+
+/* ── RESERVATION DATE — DISALLOW PAST DATES ──────────── */
+var resDate = document.getElementById('resDate');
+if (resDate) {
+  var today = new Date();
+  var iso = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+  resDate.min = iso;
+}
+
+/* ── SCROLL REVEAL ────────────────────────────────────── */
+var revObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) e.target.classList.add('in');
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(function(el) { revObs.observe(el); });
+
+/* ── SECTION LABELS UNDERLINE DRAW ───────────────────── */
+var lblObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) e.target.classList.add('drawn');
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.lbl').forEach(function(el) { lblObs.observe(el); });
+
+/* ── HERO PARALLAX ────────────────────────────────────── */
+var heroBg      = document.getElementById('heroBg');
+var heroContent = document.getElementById('heroContent');
+var scrollHint  = document.getElementById('scrollHint');
+
+function updateParallax() {
+  var sy = window.scrollY;
+  if (heroBg) heroBg.style.transform = 'translateY(' + (sy * 0.22) + 'px)';
+  if (heroContent) {
+    heroContent.style.transform = 'translateY(' + (sy * -0.07) + 'px)';
+    heroContent.style.opacity   = Math.max(0, 1 - sy / 650);
+  }
+  if (scrollHint) scrollHint.style.opacity = sy > 80 ? '0' : '1';
+}
+if (!isTouch) {
+  window.addEventListener('scroll', updateParallax, { passive: true });
+}
+
+/* ── MAGNETIC BUTTONS (desktop only) ─────────────────── */
+if (!isTouch) {
+  document.querySelectorAll('.mag-btn, .rb').forEach(function(btn) {
+    btn.addEventListener('mousemove', function(e) {
+      var r  = btn.getBoundingClientRect();
+      var dx = e.clientX - (r.left + r.width  / 2);
+      var dy = e.clientY - (r.top  + r.height / 2);
+      btn.style.transform = 'translate(' + (dx * 0.2) + 'px,' + (dy * 0.2) + 'px)';
+    });
+    btn.addEventListener('mouseleave', function() {
+      btn.style.transform = '';
+    });
+  });
+}
+
+/* ── CUSTOM CURSOR (desktop only) ────────────────────── */
+if (!isTouch) {
+  var dot  = document.getElementById('curDot');
+  var ring = document.getElementById('curRing');
+  var mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', function(e) {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  });
+  (function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a,button,.tab,.btn,.btn-ghost,.soc,input,select').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { ring.classList.add('hov'); dot.classList.add('hov'); });
+    el.addEventListener('mouseleave', function() { ring.classList.remove('hov'); dot.classList.remove('hov'); });
+  });
+}
+
+/* ── SMOOTH ANCHOR SCROLL ────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var id = this.getAttribute('href').slice(1);
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+    closeMob();
+  });
+});
+
+/* ── RESERVATION BUTTON FEEDBACK ─────────────────────── */
+var submitBtn = document.getElementById('submitBtn');
+if (submitBtn) {
+  submitBtn.addEventListener('click', function() {
+    submitBtn.textContent = '✓ Enviado';
+    submitBtn.style.background = '#2a5a3a';
+    setTimeout(function() {
+      submitBtn.textContent = 'Confirmar reserva';
+      submitBtn.style.background = '';
+    }, 2500);
+  });
+}
+
+/* ── PAGE COVER DISMISS ───────────────────────────────── */
+/* Total cover time:
+   - Logo appears at 0.15s, animates for 0.9s → visible from 0.15s
+   - Bar grows at 0.4s for 1.3s → done at 1.7s
+   - Subtitle appears at 0.65s for 0.7s → visible from 0.65s
+   - Hold everything visible: wait until 2.2s total
+   - Then fade out over 1.0s (extra 0.5s vs original)
+   - Remove at 3.2s, then start hero animations
+*/
+var cover = document.getElementById('pageCover');
+
+window.addEventListener('load', function() {
+  /* 2200ms hold, then 1000ms fade (was 900ms — +100ms extra = 0.5s more perceived) */
+  setTimeout(function() {
+    cover.style.transition = 'opacity 1.0s ease';
+    cover.style.opacity    = '0';
+    setTimeout(function() {
+      cover.style.display = 'none';
+      startHeroAnimations();
+      updateParallax();
+    }, 1000); /* wait for fade to finish */
+  }, 2200);   /* hold duration before fade starts */
+});
+
+/* ── HERO ANIMATIONS (after cover gone) ──────────────── */
+function startHeroAnimations() {
+  /* Eyebrow */
+  var ey = document.getElementById('heroEyebrow');
+  if (ey) {
+    ey.style.transition = 'opacity .8s ease, transform .8s ease';
+    ey.style.transform  = 'translateY(10px)';
+    setTimeout(function() {
+      ey.style.opacity   = '1';
+      ey.style.transform = 'translateY(0)';
+    }, 50);
+  }
+  /* Hero subtitle */
+  var hs = document.getElementById('heroSub');
+  if (hs) {
+    setTimeout(function() {
+      hs.style.transition = 'opacity .9s ease';
+      hs.style.opacity    = '1';
+    }, 400);
+  }
+  /* Hero buttons */
+  var hb = document.getElementById('heroBtns');
+  if (hb) {
+    setTimeout(function() {
+      hb.style.transition = 'opacity .9s ease';
+      hb.style.opacity    = '1';
+    }, 700);
+  }
+  /* H1 word reveal */
+  var h1 = document.getElementById('heroH1');
+  if (h1 && !h1.dataset.split) {
+    h1.dataset.split = '1';
+    var rawHtml = h1.innerHTML;
+    var parts   = rawHtml.split(/(<[^>]+>|\s+)/);
+    var wrapped = parts.map(function(p) {
+      if (!p || p.match(/^</) || p.match(/^\s+$/)) return p;
+      return '<span class="rev-char"><span class="rev-inner">' + p + '</span></span>';
+    });
+    h1.innerHTML = wrapped.join('');
+    setTimeout(function() {
+      h1.querySelectorAll('.rev-inner').forEach(function(el, i) {
+        setTimeout(function() { el.classList.add('revealed'); }, i * 80 + 100);
+      });
+    }, 150);
+  }
+}
+
+/* ── INITIAL PARALLAX ────────────────────────────────── */
+updateParallax();
+
+})();
+</script>
+</body>
+</html>
