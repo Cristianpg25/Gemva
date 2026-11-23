@@ -193,19 +193,6 @@ nav.scrolled{
   display:flex;gap:1.6rem;align-items:center;flex-wrap:wrap;
   opacity:0;
 }
-.scroll-hint{
-  position:absolute;bottom:3rem;right:5rem;z-index:2;
-  display:flex;flex-direction:column;align-items:center;gap:.8rem;
-  font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
-  transition:opacity .4s;
-}
-.scroll-line{
-  width:1px;height:58px;
-  background:linear-gradient(to bottom,var(--sand),transparent);
-  animation:blink 2.2s ease-in-out infinite;
-}
-@keyframes blink{0%,100%{opacity:.3;}50%{opacity:1;}}
-
 /* ============================================================
    BUTTONS — MAGNETIC
    ============================================================ */
@@ -283,16 +270,6 @@ nav.scrolled{
 }
 .phil-text h2 em{font-style:italic;color:var(--sand-light);}
 .phil-text p{font-size:.87rem;line-height:1.95;color:rgba(248,244,238,.58);margin-bottom:1.6rem;}
-.phil-stats{
-  display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;
-  margin-top:2.8rem;padding-top:2.2rem;
-  border-top:1px solid rgba(201,169,110,.2);
-}
-.s-num{
-  font-family:var(--display);font-size:2.8rem;font-weight:300;
-  color:var(--sand);line-height:1;display:block;margin-bottom:.3rem;
-}
-.s-lbl{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);}
 .phil-visual{position:relative;height:540px;}
 .v-main{
   position:absolute;top:0;right:0;width:80%;height:80%;
@@ -302,13 +279,6 @@ nav.scrolled{
   position:absolute;bottom:0;left:0;width:52%;height:48%;
   object-fit:cover;filter:brightness(.75);border:5px solid var(--ocean);
 }
-.v-tag{
-  position:absolute;bottom:3.2rem;right:1rem;
-  background:var(--sand);color:var(--charcoal);
-  padding:.9rem 1.4rem;font-size:.6rem;letter-spacing:.22em;
-  text-transform:uppercase;font-weight:500;
-}
-
 /* ============================================================
    CARTA
    ============================================================ */
@@ -374,46 +344,35 @@ nav.scrolled{
 .star{color:var(--sand);}
 
 /* ============================================================
-   EXPERIENCE — FLOATING ICONS
+   PARALLAX PANORÁMICO (PAN) — NUEVO ESPACIO
    ============================================================ */
-.experience{
+.pano-intro{
   background:var(--ocean);text-align:center;
-  padding:10rem 5rem;
+  padding:9rem 5rem 4.5rem;
 }
-.experience h2{
-  font-family:var(--display);font-size:clamp(2.5rem,5.5vw,5.8rem);
-  font-weight:300;line-height:1.08;color:var(--white);
-  max-width:900px;margin:1.6rem auto 2.5rem;
+.pano-intro h2{
+  font-family:var(--display);font-size:clamp(2.2rem,4.5vw,4.2rem);
+  font-weight:300;line-height:1.1;color:var(--white);
+  max-width:760px;margin:1.6rem auto 1.4rem;
 }
-.experience h2 em{font-style:italic;color:var(--sand-light);}
-.experience>p{
+.pano-intro h2 em{font-style:italic;color:var(--sand-light);}
+.pano-intro p{
   font-size:.87rem;color:rgba(248,244,238,.52);
-  max-width:470px;margin:0 auto 3.2rem;line-height:1.95;
+  max-width:460px;margin:0 auto;line-height:1.95;
 }
-.feats{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;
-  margin-top:5rem;padding-top:4.5rem;
-  border-top:1px solid rgba(201,169,110,.14);
+.pano{position:relative;height:300vh;background:var(--ocean);}
+.pano-sticky{position:sticky;top:0;height:100svh;overflow:hidden;}
+.pano-img{display:block;height:100%;width:auto;max-width:none;will-change:transform;}
+.pano-note{
+  background:var(--ocean);text-align:center;
+  font-size:.66rem;letter-spacing:.04em;color:rgba(201,169,110,.45);
+  font-style:italic;padding:1.8rem 1.5rem 6rem;margin:0;
 }
-.feat{text-align:center;}
-.feat-icon{
-  font-size:1.7rem;display:block;margin-bottom:.9rem;
+@media(prefers-reduced-motion:reduce){
+  .pano{height:auto;}
+  .pano-sticky{position:relative;}
+  .pano-img{width:100%;object-fit:cover;object-position:30% 55%;will-change:auto;}
 }
-/* Floating animation triggers when .feat has .in */
-@keyframes floatIcon{
-  0%,100%{transform:translateY(0) scale(1);}
-  50%{transform:translateY(-10px) scale(1.06);}
-}
-.feat.in .feat-icon{animation:floatIcon 3.5s ease-in-out infinite;}
-.feat:nth-child(1).in .feat-icon{animation-delay:0s;}
-.feat:nth-child(2).in .feat-icon{animation-delay:.5s;}
-.feat:nth-child(3).in .feat-icon{animation-delay:1s;}
-.feat:nth-child(4).in .feat-icon{animation-delay:1.5s;}
-.feat h3{
-  font-family:var(--display);font-size:1.22rem;font-weight:400;
-  color:var(--white);margin-bottom:.5rem;
-}
-.feat p{font-size:.72rem;color:var(--muted);line-height:1.75;margin:0;}
 
 /* ============================================================
    LOCATION
@@ -575,7 +534,6 @@ body::after{
   .nav-ul{display:none;}
   .burger{display:flex;}
   .hero{padding:0 1.5rem 5rem;}
-  .scroll-hint{right:1.5rem;}
   .hero h1{font-size:clamp(2.8rem,10vw,4.5rem);}
   .philosophy{grid-template-columns:1fr;gap:3rem;padding:5.5rem 1.5rem;}
   .phil-visual{height:360px;}
@@ -585,8 +543,7 @@ body::after{
   .dish-grid{grid-template-columns:1fr;gap:0;}
   .tabs{gap:0;}
   .tab{padding:.75rem .9rem;font-size:.58rem;}
-  .experience{padding:6.5rem 1.5rem;}
-  .feats{grid-template-columns:1fr 1fr;gap:2rem;}
+  .pano-intro{padding:5.5rem 1.5rem 3rem;}
   .location{grid-template-columns:1fr;}
   .loc-visual{min-height:300px;}
   .loc-info{padding:3.5rem 1.5rem;}
@@ -607,13 +564,8 @@ body::after{
   .hero h1{font-size:clamp(2.4rem,9vw,3.5rem);}
   .hero-btns{flex-direction:column;align-items:flex-start;}
   .phil-visual{height:280px;}
-  .phil-stats{grid-template-columns:1fr 1fr;}
-  .feats{grid-template-columns:1fr 1fr;}
   .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .tab{flex-shrink:0;}
-}
-@media(max-width:380px){
-  .feats{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -669,10 +621,6 @@ body::after{
       <a href="#carta" class="btn-ghost">Ver la carta</a>
     </div>
   </div>
-  <div class="scroll-hint" id="scrollHint">
-    <div class="scroll-line"></div>
-    <span>Descubrir</span>
-  </div>
 </div>
 
 <!-- ============================================================
@@ -682,19 +630,11 @@ body::after{
   <div class="phil-text r">
     <span class="lbl">01 — Nuestra filosofía</span>
     <h2>La cocina como<br><em>acto de memoria</em></h2>
-    <p>En Gemva creemos que los mejores platos no se inventan, se recuerdan. Rescatamos recetas de la costa almeriense y les damos una segunda vida con técnica contemporánea y producto de temporada.</p>
     <p>Cada jornada comienza en la lonja. Cada carta cambia con el mar. Porque la frescura no es un valor añadido, es la base de todo lo que hacemos.</p>
-    <div class="phil-stats">
-      <div><span class="s-num">100%</span><span class="s-lbl">Producto local</span></div>
-      <div><span class="s-num">Diaria</span><span class="s-lbl">Compra en lonja</span></div>
-      <div><span class="s-num">Mar</span><span class="s-lbl">Terraza con vistas</span></div>
-      <div><span class="s-num">Km0</span><span class="s-lbl">Proveedores cercanos</span></div>
-    </div>
   </div>
   <div class="phil-visual r d2">
     <img class="v-main" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80" alt="Cocina Gemva" loading="lazy">
     <img class="v-accent" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&q=80" alt="Mariscos" loading="lazy">
-    <div class="v-tag">Producto de temporada</div>
   </div>
 </section>
 
@@ -839,21 +779,23 @@ body::after{
 </section>
 
 <!-- ============================================================
-     EXPERIENCE — FLOATING ICONS
+     PARALLAX PANORÁMICO — NUEVO ESPACIO
      ============================================================ -->
-<section class="experience" id="experiencia">
-  <span class="lbl">03 — El lugar</span>
+<section class="pano-intro r" id="espacio">
+  <span class="lbl">03 — Nuestro nuevo espacio</span>
   <div class="divider"></div>
-  <h2>Una <em>terraza</em> con el<br>Mediterráneo de fondo</h2>
-  <p>San Juan de los Terreros es uno de los rincones más auténticos del litoral andaluz. En Gemva lo hemos convertido en nuestra sala más especial.</p>
-  <a href="#reserva" class="btn mag-btn">Reservar tu mesa</a>
-  <div class="feats">
-    <div class="feat r"><span class="feat-icon">⚓</span><h3>Terraza al mar</h3><p>Vistas directas al Mediterráneo desde cada mesa</p></div>
-    <div class="feat r d1"><span class="feat-icon">🐟</span><h3>Lonja diaria</h3><p>Compramos cada mañana en la lonja local</p></div>
-    <div class="feat r d2"><span class="feat-icon">🌿</span><h3>Km Zero</h3><p>Huerta, aceite y vinos de productores almerienses</p></div>
-    <div class="feat r d3"><span class="feat-icon">🍷</span><h3>Bodega selecta</h3><p>Vinos andaluces y nacionales seleccionados con mimo</p></div>
+  <h2>Un lugar <em>recién nacido</em><br>frente al Mediterráneo</h2>
+  <p>Terminamos la obra en unas semanas. Recorre con el scroll el espacio que estamos construyendo, pensado para mirar al mar desde cada rincón.</p>
+</section>
+
+<section class="pano" data-pano-recorrido="1" data-pano-ritmo="1" aria-label="Vista panorámica ilustrada del nuevo espacio de Gemva: terraza junto al castillo, con el Mediterráneo al fondo">
+  <div class="pano-sticky">
+    <img class="pano-img" width="6000" height="1500" decoding="async"
+         alt="Ilustración panorámica: terraza con pérgola a la izquierda, el castillo de San Juan de los Terreros en el acantilado y el mar abierto al atardecer a la derecha"
+         src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%206000%201500%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22sky%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%0A%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230D2130%22%2F%3E%0A%3Cstop%20offset%3D%220.45%22%20stop-color%3D%22%2317344a%22%2F%3E%0A%3Cstop%20offset%3D%220.72%22%20stop-color%3D%22%238d7b5e%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23E8D5B0%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22sea%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%0A%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2309161f%22%2F%3E%0A%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23143349%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%234a6a72%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3C%2Fdefs%3E%0A%3Crect%20width%3D%226000%22%20height%3D%221500%22%20fill%3D%22url%28%23sky%29%22%2F%3E%0A%3Ccircle%20cx%3D%224550%22%20cy%3D%22520%22%20r%3D%22150%22%20fill%3D%22%23f6e6c8%22%20opacity%3D%220.85%22%2F%3E%0A%3Crect%20x%3D%220%22%20y%3D%22980%22%20width%3D%226000%22%20height%3D%22520%22%20fill%3D%22url%28%23sea%29%22%2F%3E%0A%3Cpath%20d%3D%22M0%20980%20Q1500%20940%203000%20965%20T6000%20950%20L6000%201000%20L0%201000%20Z%22%20fill%3D%22%230D2130%22%20opacity%3D%220.5%22%2F%3E%0A%3C%21--%20terraza%20izquierda%20--%3E%0A%3Cg%20fill%3D%22%23111111%22%20opacity%3D%220.88%22%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22760%22%20width%3D%2218%22%20height%3D%22230%22%20%2F%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22760%22%20width%3D%2218%22%20height%3D%22230%22%20%2F%3E%0A%3Crect%20x%3D%22720%22%20y%3D%22760%22%20width%3D%2218%22%20height%3D%22230%22%20%2F%3E%0A%3Cpath%20d%3D%22M60%20770%20Q430%20660%20790%20770%20L790%20810%20Q430%20710%2060%20810%20Z%22%20%2F%3E%0A%3Cellipse%20cx%3D%22129%22%20cy%3D%22740%22%20rx%3D%22130%22%20ry%3D%2236%22%20%2F%3E%0A%3Cellipse%20cx%3D%22429%22%20cy%3D%22740%22%20rx%3D%22130%22%20ry%3D%2236%22%20%2F%3E%0A%3Cellipse%20cx%3D%22729%22%20cy%3D%22740%22%20rx%3D%22130%22%20ry%3D%2236%22%20%2F%3E%0A%3Crect%20x%3D%2240%22%20y%3D%22980%22%20width%3D%22820%22%20height%3D%2220%22%20%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%20mesas%20sugeridas%20--%3E%0A%3Cg%20fill%3D%22%23111111%22%20opacity%3D%220.6%22%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22920%22%20width%3D%22110%22%20height%3D%2210%22%20rx%3D%224%22%2F%3E%0A%3Crect%20x%3D%22500%22%20y%3D%22920%22%20width%3D%22110%22%20height%3D%2210%22%20rx%3D%224%22%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%20acantilado%20y%20castillo%20--%3E%0A%3Cpath%20d%3D%22M2050%201000%20L2200%20790%20L2320%20860%20L2430%20760%20L2560%20900%20L2680%20820%20L2850%201000%20Z%22%20fill%3D%22%2317222b%22%20opacity%3D%220.92%22%2F%3E%0A%3Cg%20fill%3D%22%23111111%22%20opacity%3D%220.92%22%3E%0A%3Crect%20x%3D%222330%22%20y%3D%22650%22%20width%3D%22150%22%20height%3D%22140%22%20%2F%3E%0A%3Crect%20x%3D%222300%22%20y%3D%22700%22%20width%3D%2240%22%20height%3D%2290%22%20%2F%3E%0A%3Crect%20x%3D%222510%22%20y%3D%22700%22%20width%3D%2240%22%20height%3D%2290%22%20%2F%3E%0A%3Crect%20x%3D%222350%22%20y%3D%22600%22%20width%3D%2226%22%20height%3D%2255%22%20%2F%3E%0A%3Crect%20x%3D%222404%22%20y%3D%22600%22%20width%3D%2226%22%20height%3D%2255%22%20%2F%3E%0A%3Crect%20x%3D%222458%22%20y%3D%22600%22%20width%3D%2226%22%20height%3D%2255%22%20%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%20aves%20--%3E%0A%3Cg%20stroke%3D%22%23E8D5B0%22%20stroke-width%3D%225%22%20fill%3D%22none%22%20opacity%3D%220.6%22%20stroke-linecap%3D%22round%22%3E%0A%3Cpath%20d%3D%22M3400%20380%20q40%20-36%2080%200%20q40%20-36%2080%200%22%2F%3E%0A%3Cpath%20d%3D%22M3700%20300%20q30%20-26%2060%200%20q30%20-26%2060%200%22%2F%3E%0A%3Cpath%20d%3D%22M5000%20250%20q30%20-26%2060%200%20q30%20-26%2060%200%22%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%20brillo%20del%20mar%20--%3E%0A%3Cg%20stroke%3D%22%23E8D5B0%22%20stroke-width%3D%224%22%20opacity%3D%220.35%22%3E%0A%3Cline%20x1%3D%224200%22%20y1%3D%221080%22%20x2%3D%224420%22%20y2%3D%221080%22%2F%3E%0A%3Cline%20x1%3D%224600%22%20y1%3D%221140%22%20x2%3D%224900%22%20y2%3D%221140%22%2F%3E%0A%3Cline%20x1%3D%224100%22%20y1%3D%221200%22%20x2%3D%224500%22%20y2%3D%221200%22%2F%3E%0A%3Cline%20x1%3D%225000%22%20y1%3D%221250%22%20x2%3D%225400%22%20y2%3D%221250%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E">
   </div>
 </section>
+<p class="pano-note">— Marcador de posición: aquí irá una fotografía panorámica real del local en cuanto esté disponible —</p>
 
 <!-- ============================================================
      LOCATION
@@ -1015,7 +957,6 @@ document.querySelectorAll('.lbl').forEach(function(el) { lblObs.observe(el); });
 /* ── HERO PARALLAX ────────────────────────────────────── */
 var heroBg      = document.getElementById('heroBg');
 var heroContent = document.getElementById('heroContent');
-var scrollHint  = document.getElementById('scrollHint');
 
 function updateParallax() {
   var sy = window.scrollY;
@@ -1024,7 +965,6 @@ function updateParallax() {
     heroContent.style.transform = 'translateY(' + (sy * -0.07) + 'px)';
     heroContent.style.opacity   = Math.max(0, 1 - sy / 650);
   }
-  if (scrollHint) scrollHint.style.opacity = sy > 80 ? '0' : '1';
 }
 if (!isTouch) {
   window.addEventListener('scroll', updateParallax, { passive: true });
@@ -1165,6 +1105,43 @@ function startHeroAnimations() {
     }, 150);
   }
 }
+
+/* ── PARALLAX PANORÁMICO (PAN) ────────────────────────── */
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+document.querySelectorAll('.pano').forEach(function(section) {
+  var sticky    = section.querySelector('.pano-sticky');
+  var img       = section.querySelector('.pano-img');
+  var fraction  = parseFloat(section.dataset.panoRecorrido || '1');
+  var rhythm    = parseFloat(section.dataset.panoRitmo || '1');
+  var fromRight = section.dataset.panoInicio === 'derecha';
+  var distance = 0, travel = 0, queued = false;
+
+  function measurePano() {
+    if (reduceMotion.matches) { section.style.height = ''; img.style.transform = ''; return; }
+    var viewH = sticky.clientHeight;
+    distance = Math.max(0, img.getBoundingClientRect().width - sticky.clientWidth) * fraction;
+    travel = Math.min(Math.max(distance * rhythm, viewH), viewH * 4);
+    section.style.height = (viewH + travel) + 'px';
+    updatePano();
+  }
+
+  function updatePano() {
+    queued = false;
+    if (reduceMotion.matches) return;
+    var p = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / travel || 0));
+    var x = fromRight ? -(1 - p) * distance : -p * distance;
+    img.style.transform = 'translate3d(' + x + 'px, 0, 0)';
+  }
+
+  window.addEventListener('scroll', function() {
+    if (!queued) { queued = true; requestAnimationFrame(updatePano); }
+  }, { passive: true });
+  new ResizeObserver(measurePano).observe(sticky);
+  reduceMotion.addEventListener('change', measurePano);
+  (img.complete ? Promise.resolve() : img.decode().catch(function(){})).then(measurePano);
+  img.addEventListener('load', measurePano);
+  window.addEventListener('load', measurePano);
+});
 
 /* ── INITIAL PARALLAX ────────────────────────────────── */
 updateParallax();
