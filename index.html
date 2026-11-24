@@ -20,10 +20,12 @@
   --muted:#8A8A7A;
   --display:'Cormorant Garamond',Georgia,serif;
   --body:'Montserrat',sans-serif;
+  --stone-charcoal:linear-gradient(rgba(27,33,57,.62),rgba(27,33,57,.62)),url('images/stone-texture.svg') center/480px repeat,var(--charcoal);
+  --stone-ocean:linear-gradient(rgba(16,20,34,.68),rgba(16,20,34,.68)),url('images/stone-texture.svg') center/480px repeat,var(--ocean);
 }
 html{scroll-behavior:smooth;}
 body{
-  background:var(--charcoal);
+  background:var(--stone-charcoal);
   color:var(--white);
   font-family:var(--body);
   font-weight:300;
@@ -35,7 +37,7 @@ body{
    ============================================================ */
 .page-cover{
   position:fixed;inset:0;
-  background:var(--charcoal);
+  background:var(--stone-charcoal);
   z-index:999990;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
@@ -235,7 +237,7 @@ nav.scrolled{
    PHILOSOPHY
    ============================================================ */
 .philosophy{
-  background:var(--ocean);
+  background:var(--stone-ocean);
   display:grid;grid-template-columns:1fr 1fr;
   gap:5rem;align-items:center;
   padding:9rem 5rem;
@@ -258,7 +260,7 @@ nav.scrolled{
 /* ============================================================
    CARTA
    ============================================================ */
-.carta{background:var(--charcoal);padding:9rem 5rem;}
+.carta{background:var(--stone-charcoal);padding:9rem 5rem;}
 .carta-top{margin-bottom:3.5rem;}
 .carta-top h2{
   font-family:var(--display);font-size:clamp(2rem,4vw,3.8rem);
@@ -323,7 +325,7 @@ nav.scrolled{
    PARALLAX PANORÁMICO (PAN) — NUEVO ESPACIO
    ============================================================ */
 .pano-intro{
-  background:var(--ocean);text-align:center;
+  background:var(--stone-ocean);text-align:center;
   padding:9rem 5rem 4.5rem;
 }
 .pano-intro h2{
@@ -336,7 +338,7 @@ nav.scrolled{
   font-size:.87rem;color:rgba(248,244,238,.52);
   max-width:460px;margin:0 auto;line-height:1.95;
 }
-.pano{position:relative;height:300vh;background:var(--ocean);}
+.pano{position:relative;height:300vh;background:var(--stone-ocean);}
 .pano-sticky{position:sticky;top:0;height:100svh;overflow:hidden;}
 .pano-img{display:block;height:100%;width:auto;max-width:none;will-change:transform;}
 @media(prefers-reduced-motion:reduce){
@@ -381,7 +383,7 @@ nav.scrolled{
   color:var(--sand-light);text-align:center;line-height:1.6;
 }
 .loc-info{
-  background:var(--charcoal);padding:5.5rem;
+  background:var(--stone-charcoal);padding:5.5rem;
   display:flex;flex-direction:column;justify-content:center;
 }
 .loc-info h2{
@@ -457,7 +459,7 @@ nav.scrolled{
    FOOTER
    ============================================================ */
 footer{
-  background:var(--ocean);padding:5.5rem 5rem 3rem;
+  background:var(--stone-ocean);padding:5.5rem 5rem 3rem;
   display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;
 }
 .f-logo{
@@ -479,7 +481,7 @@ footer{
 .fc a{font-size:.79rem;color:var(--muted);text-decoration:none;transition:color .3s;}
 .fc a:hover{color:var(--white);}
 .foot-bot{
-  background:var(--ocean);padding:1.5rem 5rem;
+  background:var(--stone-ocean);padding:1.5rem 5rem;
   border-top:1px solid rgba(201,169,110,.1);
   display:flex;justify-content:space-between;align-items:center;
   flex-wrap:wrap;gap:1rem;
