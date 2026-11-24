@@ -14,8 +14,8 @@
 :root{
   --sand:#C9A96E;
   --sand-light:#E8D5B0;
-  --ocean:#0D2130;
-  --charcoal:#111111;
+  --ocean:#101422;
+  --charcoal:#1B2139;
   --white:#F8F4EE;
   --muted:#8A8A7A;
   --display:'Cormorant Garamond',Georgia,serif;
@@ -42,9 +42,7 @@ body{
   pointer-events:none;
 }
 .cover-logo{
-  font-family:var(--display);
-  font-size:5rem;font-weight:300;letter-spacing:.28em;
-  color:var(--sand-light);
+  display:block;width:180px;height:auto;
   opacity:0;
   transform:translateY(28px);
   animation:coverFadeIn .9s ease-out .15s forwards;
@@ -69,28 +67,6 @@ body{
 }
 
 /* ============================================================
-   CUSTOM CURSOR (desktop only)
-   ============================================================ */
-.cur-dot{
-  position:fixed;top:0;left:0;width:8px;height:8px;
-  background:var(--sand);border-radius:50%;pointer-events:none;
-  z-index:99999;transform:translate(-50%,-50%);
-  transition:width .2s,height .2s,background .2s,opacity .3s;
-}
-.cur-ring{
-  position:fixed;top:0;left:0;width:36px;height:36px;
-  border:1px solid rgba(201,169,110,.5);border-radius:50%;
-  pointer-events:none;z-index:99998;transform:translate(-50%,-50%);
-  transition:width .4s cubic-bezier(.23,1,.32,1),height .4s cubic-bezier(.23,1,.32,1),opacity .3s,border-color .3s;
-}
-.cur-ring.hov{width:60px;height:60px;border-color:var(--sand);opacity:.7;}
-.cur-dot.hov{width:4px;height:4px;}
-@media(min-width:961px){
-  body{cursor:none;}
-  a,button,.tab,.btn,.btn-ghost,.soc,input,select{cursor:none;}
-}
-
-/* ============================================================
    NAV
    ============================================================ */
 nav{
@@ -100,7 +76,7 @@ nav{
   transition:background .5s,padding .4s;
 }
 nav.scrolled{
-  background:rgba(13,33,48,.97);
+  background:rgba(16,20,34,.97);
   backdrop-filter:blur(16px);
   padding:1.2rem 5rem;
 }
@@ -135,7 +111,7 @@ nav.scrolled{
 .burger span{display:block;width:24px;height:1px;background:var(--white);}
 .mob-nav{
   display:none;position:fixed;inset:0;
-  background:rgba(13,33,48,.98);
+  background:rgba(16,20,34,.98);
   flex-direction:column;justify-content:center;align-items:center;
   gap:3rem;z-index:150;
 }
@@ -162,7 +138,7 @@ nav.scrolled{
 .hero-bg-zoom{
   position:absolute;inset:0;
   background:
-    linear-gradient(to top,rgba(13,33,48,.96) 0%,rgba(13,33,48,.18) 45%,rgba(13,33,48,.62) 100%),
+    linear-gradient(to top,rgba(16,20,34,.96) 0%,rgba(16,20,34,.18) 45%,rgba(16,20,34,.62) 100%),
     url('images/hero.jpg') center 65%/cover no-repeat;
   transform:scale(1.05);
   animation:heroZoom 16s ease-out forwards;
@@ -363,15 +339,10 @@ nav.scrolled{
 .pano{position:relative;height:300vh;background:var(--ocean);}
 .pano-sticky{position:sticky;top:0;height:100svh;overflow:hidden;}
 .pano-img{display:block;height:100%;width:auto;max-width:none;will-change:transform;}
-.pano-note{
-  background:var(--ocean);text-align:center;
-  font-size:.66rem;letter-spacing:.04em;color:rgba(201,169,110,.45);
-  font-style:italic;padding:1.8rem 1.5rem 6rem;margin:0;
-}
 @media(prefers-reduced-motion:reduce){
   .pano{height:auto;}
   .pano-sticky{position:relative;}
-  .pano-img{width:100%;object-fit:cover;object-position:30% 55%;will-change:auto;}
+  .pano-img{width:100%;object-fit:cover;object-position:40% 60%;will-change:auto;}
 }
 
 /* ============================================================
@@ -388,7 +359,7 @@ nav.scrolled{
 }
 .loc-overlay{
   position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(13,33,48,.5) 0%,rgba(13,33,48,.15) 100%);
+  background:linear-gradient(135deg,rgba(16,20,34,.5) 0%,rgba(16,20,34,.15) 100%);
 }
 .pin-wrap{
   position:relative;z-index:2;
@@ -455,18 +426,18 @@ nav.scrolled{
   font-weight:300;color:var(--charcoal);margin-bottom:1rem;
 }
 .reserva h2 em{font-style:italic;}
-.reserva>p{font-size:.84rem;color:rgba(17,17,17,.58);margin-bottom:2.8rem;}
+.reserva>p{font-size:.84rem;color:rgba(27,33,57,.58);margin-bottom:2.8rem;}
 .res-form{
   display:flex;gap:.9rem;justify-content:center;
   flex-wrap:wrap;position:relative;z-index:1;
 }
 .ri{
-  background:rgba(17,17,17,.1);border:1px solid rgba(17,17,17,.18);
+  background:rgba(27,33,57,.1);border:1px solid rgba(27,33,57,.18);
   padding:1rem 1.5rem;font-family:var(--body);font-size:.85rem;
   color:var(--charcoal);outline:none;min-width:168px;
   transition:border-color .3s,box-shadow .3s;
 }
-.ri::placeholder{color:rgba(17,17,17,.38);}
+.ri::placeholder{color:rgba(27,33,57,.38);}
 .ri:focus{
   border-color:rgba(201,169,110,.65)!important;
   box-shadow:0 0 0 3px rgba(201,169,110,.1)!important;
@@ -479,7 +450,7 @@ nav.scrolled{
   transition:background .3s,transform .4s cubic-bezier(.23,1,.32,1);
 }
 .rb:hover{background:var(--ocean);}
-.r-tel{margin-top:1.9rem;font-size:.74rem;color:rgba(17,17,17,.48);}
+.r-tel{margin-top:1.9rem;font-size:.74rem;color:rgba(27,33,57,.48);}
 .r-tel a{color:var(--charcoal);text-decoration:none;font-weight:500;}
 
 /* ============================================================
@@ -552,9 +523,7 @@ body::after{
   .ri,.rb{width:100%;max-width:400px;min-width:unset;}
   footer{grid-template-columns:1fr;gap:2.2rem;padding:4rem 1.5rem 2.5rem;}
   .foot-bot{padding:1.3rem 1.5rem;flex-direction:column;text-align:center;}
-  .cover-logo{font-size:3rem;}
-  /* Disable cursor on touch */
-  .cur-dot,.cur-ring{display:none;}
+  .cover-logo{width:120px;}
 }
 
 /* ============================================================
@@ -575,14 +544,10 @@ body::after{
      PAGE COVER
      ============================================================ -->
 <div class="page-cover" id="pageCover">
-  <div class="cover-logo">Gemva</div>
+  <img class="cover-logo" src="images/gemva-logo.png" alt="Gemva">
   <div class="cover-bar"></div>
   <div class="cover-sub">San Juan de los Terreros &middot; Almería</div>
 </div>
-
-<!-- CUSTOM CURSOR -->
-<div class="cur-dot" id="curDot"></div>
-<div class="cur-ring" id="curRing"></div>
 
 <!-- ============================================================
      NAV
@@ -785,17 +750,15 @@ body::after{
   <span class="lbl">03 — Nuestro nuevo espacio</span>
   <div class="divider"></div>
   <h2>Un lugar <em>recién nacido</em><br>frente al Mediterráneo</h2>
-  <p>Terminamos la obra en unas semanas. Recorre con el scroll el espacio que estamos construyendo, pensado para mirar al mar desde cada rincón.</p>
+  <p>A pie de esta playa termina de nacer nuestro nuevo espacio. Recorre con el scroll el rincón del Mediterráneo que nos rodea.</p>
 </section>
 
-<section class="pano" data-pano-recorrido="1" data-pano-ritmo="1" aria-label="Vista panorámica ilustrada del nuevo espacio de Gemva: terraza junto al castillo, con el Mediterráneo al fondo">
+<section class="pano" data-pano-recorrido="1" data-pano-ritmo="1" aria-label="Panorámica de la playa de San Juan de los Terreros, junto a Gemva">
   <div class="pano-sticky">
-    <img class="pano-img" width="6000" height="1500" decoding="async"
-         alt="Ilustración panorámica: terraza con pérgola a la izquierda, el castillo de San Juan de los Terreros en el acantilado y el mar abierto al atardecer a la derecha"
-         src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%206000%201500%22%3E%0A%3Cdefs%3E%0A%3ClinearGradient%20id%3D%22sky%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%0A%3Cstop%20offset%3D%220%22%20stop-color%3D%22%230D2130%22%2F%3E%0A%3Cstop%20offset%3D%220.45%22%20stop-color%3D%22%2317344a%22%2F%3E%0A%3Cstop%20offset%3D%220.72%22%20stop-color%3D%22%238d7b5e%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23E8D5B0%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3ClinearGradient%20id%3D%22sea%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%0A%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2309161f%22%2F%3E%0A%3Cstop%20offset%3D%220.5%22%20stop-color%3D%22%23143349%22%2F%3E%0A%3Cstop%20offset%3D%221%22%20stop-color%3D%22%234a6a72%22%2F%3E%0A%3C%2FlinearGradient%3E%0A%3C%2Fdefs%3E%0A%3Crect%20width%3D%226000%22%20height%3D%221500%22%20fill%3D%22url%28%23sky%29%22%2F%3E%0A%3Ccircle%20cx%3D%224550%22%20cy%3D%22520%22%20r%3D%22150%22%20fill%3D%22%23f6e6c8%22%20opacity%3D%220.85%22%2F%3E%0A%3Crect%20x%3D%220%22%20y%3D%22980%22%20width%3D%226000%22%20height%3D%22520%22%20fill%3D%22url%28%23sea%29%22%2F%3E%0A%3Cpath%20d%3D%22M0%20980%20Q1500%20940%203000%20965%20T6000%20950%20L6000%201000%20L0%201000%20Z%22%20fill%3D%22%230D2130%22%20opacity%3D%220.5%22%2F%3E%0A%3C%21--%20terraza%20izquierda%20--%3E%0A%3Cg%20fill%3D%22%23111111%22%20opacity%3D%220.88%22%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22760%22%20width%3D%2218%22%20height%3D%22230%22%20%2F%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22760%22%20width%3D%2218%22%20height%3D%22230%22%20%2F%3E%0A%3Crect%20x%3D%22720%22%20y%3D%22760%22%20width%3D%2218%22%20height%3D%22230%22%20%2F%3E%0A%3Cpath%20d%3D%22M60%20770%20Q430%20660%20790%20770%20L790%20810%20Q430%20710%2060%20810%20Z%22%20%2F%3E%0A%3Cellipse%20cx%3D%22129%22%20cy%3D%22740%22%20rx%3D%22130%22%20ry%3D%2236%22%20%2F%3E%0A%3Cellipse%20cx%3D%22429%22%20cy%3D%22740%22%20rx%3D%22130%22%20ry%3D%2236%22%20%2F%3E%0A%3Cellipse%20cx%3D%22729%22%20cy%3D%22740%22%20rx%3D%22130%22%20ry%3D%2236%22%20%2F%3E%0A%3Crect%20x%3D%2240%22%20y%3D%22980%22%20width%3D%22820%22%20height%3D%2220%22%20%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%20mesas%20sugeridas%20--%3E%0A%3Cg%20fill%3D%22%23111111%22%20opacity%3D%220.6%22%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22920%22%20width%3D%22110%22%20height%3D%2210%22%20rx%3D%224%22%2F%3E%0A%3Crect%20x%3D%22500%22%20y%3D%22920%22%20width%3D%22110%22%20height%3D%2210%22%20rx%3D%224%22%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%20acantilado%20y%20castillo%20--%3E%0A%3Cpath%20d%3D%22M2050%201000%20L2200%20790%20L2320%20860%20L2430%20760%20L2560%20900%20L2680%20820%20L2850%201000%20Z%22%20fill%3D%22%2317222b%22%20opacity%3D%220.92%22%2F%3E%0A%3Cg%20fill%3D%22%23111111%22%20opacity%3D%220.92%22%3E%0A%3Crect%20x%3D%222330%22%20y%3D%22650%22%20width%3D%22150%22%20height%3D%22140%22%20%2F%3E%0A%3Crect%20x%3D%222300%22%20y%3D%22700%22%20width%3D%2240%22%20height%3D%2290%22%20%2F%3E%0A%3Crect%20x%3D%222510%22%20y%3D%22700%22%20width%3D%2240%22%20height%3D%2290%22%20%2F%3E%0A%3Crect%20x%3D%222350%22%20y%3D%22600%22%20width%3D%2226%22%20height%3D%2255%22%20%2F%3E%0A%3Crect%20x%3D%222404%22%20y%3D%22600%22%20width%3D%2226%22%20height%3D%2255%22%20%2F%3E%0A%3Crect%20x%3D%222458%22%20y%3D%22600%22%20width%3D%2226%22%20height%3D%2255%22%20%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%20aves%20--%3E%0A%3Cg%20stroke%3D%22%23E8D5B0%22%20stroke-width%3D%225%22%20fill%3D%22none%22%20opacity%3D%220.6%22%20stroke-linecap%3D%22round%22%3E%0A%3Cpath%20d%3D%22M3400%20380%20q40%20-36%2080%200%20q40%20-36%2080%200%22%2F%3E%0A%3Cpath%20d%3D%22M3700%20300%20q30%20-26%2060%200%20q30%20-26%2060%200%22%2F%3E%0A%3Cpath%20d%3D%22M5000%20250%20q30%20-26%2060%200%20q30%20-26%2060%200%22%2F%3E%0A%3C%2Fg%3E%0A%3C%21--%20brillo%20del%20mar%20--%3E%0A%3Cg%20stroke%3D%22%23E8D5B0%22%20stroke-width%3D%224%22%20opacity%3D%220.35%22%3E%0A%3Cline%20x1%3D%224200%22%20y1%3D%221080%22%20x2%3D%224420%22%20y2%3D%221080%22%2F%3E%0A%3Cline%20x1%3D%224600%22%20y1%3D%221140%22%20x2%3D%224900%22%20y2%3D%221140%22%2F%3E%0A%3Cline%20x1%3D%224100%22%20y1%3D%221200%22%20x2%3D%224500%22%20y2%3D%221200%22%2F%3E%0A%3Cline%20x1%3D%225000%22%20y1%3D%221250%22%20x2%3D%225400%22%20y2%3D%221250%22%2F%3E%0A%3C%2Fg%3E%0A%3C%2Fsvg%3E">
+    <img class="pano-img" src="images/panoramica.jpg" width="2000" height="443" decoding="async"
+         alt="Panorámica de la playa de San Juan de los Terreros al amanecer: la cala, la arena y los edificios del paseo marítimo junto al mar">
   </div>
 </section>
-<p class="pano-note">— Marcador de posición: aquí irá una fotografía panorámica real del local en cuanto esté disponible —</p>
 
 <!-- ============================================================
      LOCATION
@@ -843,7 +806,7 @@ body::after{
      RESERVA
      ============================================================ -->
 <section class="reserva" id="reserva">
-  <span class="lbl" style="color:rgba(17,17,17,.38);">05 — Reservas</span>
+  <span class="lbl" style="color:rgba(27,33,57,.38);">05 — Reservas</span>
   <h2><em>Tu mesa</em> te espera</h2>
   <p>Reserva con antelación y asegura tu sitio junto al Mediterráneo</p>
   <form class="res-form" onsubmit="return false;">
@@ -982,30 +945,6 @@ if (!isTouch) {
     btn.addEventListener('mouseleave', function() {
       btn.style.transform = '';
     });
-  });
-}
-
-/* ── CUSTOM CURSOR (desktop only) ────────────────────── */
-if (!isTouch) {
-  var dot  = document.getElementById('curDot');
-  var ring = document.getElementById('curRing');
-  var mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', function(e) {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx + 'px';
-    dot.style.top  = my + 'px';
-  });
-  (function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(animRing);
-  })();
-  document.querySelectorAll('a,button,.tab,.btn,.btn-ghost,.soc,input,select').forEach(function(el) {
-    el.addEventListener('mouseenter', function() { ring.classList.add('hov'); dot.classList.add('hov'); });
-    el.addEventListener('mouseleave', function() { ring.classList.remove('hov'); dot.classList.remove('hov'); });
   });
 }
 
